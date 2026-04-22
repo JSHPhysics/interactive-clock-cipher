@@ -323,6 +323,214 @@ h1 {
 }
 
 .hint span { color: var(--navy-dim); }
+
+/* ── HOW TO USE BUTTON ─────────────────────────── */
+.help-btn {
+  margin-top: 14px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--border2);
+  color: var(--text-muted);
+  padding: 5px 16px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.help-btn:hover { border-color: var(--navy-lo); color: var(--navy); }
+
+/* ── MODAL OVERLAY ─────────────────────────────── */
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(240, 235, 226, 0.88);
+  backdrop-filter: blur(3px);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.modal-backdrop.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  max-width: 560px;
+  width: 100%;
+  padding: 0;
+  position: relative;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modal-header h2 {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 2px;
+  transition: color 0.12s;
+}
+.modal-close:hover { color: var(--text-bright); }
+
+/* Step progress dots */
+.modal-progress {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 0 0;
+  flex-shrink: 0;
+}
+
+.prog-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border2);
+  transition: background 0.2s, transform 0.2s;
+}
+.prog-dot.active {
+  background: var(--navy-dim);
+  transform: scale(1.35);
+}
+
+/* Step content area */
+.modal-steps {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  min-height: 280px;
+}
+
+.modal-step {
+  position: absolute;
+  inset: 0;
+  padding: 28px 28px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+.modal-step.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.modal-step.exit {
+  opacity: 0;
+  transform: translateX(-32px);
+}
+
+.step-num {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--navy-lo);
+  text-transform: uppercase;
+}
+
+.step-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  line-height: 1.3;
+}
+
+.step-body {
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.step-body strong {
+  color: var(--navy-hi);
+  font-weight: 700;
+}
+
+/* Step illustration */
+.step-illus {
+  margin-top: auto;
+  padding-top: 10px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 10px 14px;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+.step-illus .hi { color: var(--navy-hi); font-weight: 700; }
+.step-illus .lo { color: var(--text-muted); }
+
+/* Modal footer nav */
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px 20px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modal-nav-btn {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--border2);
+  color: var(--text-muted);
+  padding: 6px 16px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.modal-nav-btn:hover { border-color: var(--navy-lo); color: var(--navy); }
+.modal-nav-btn:disabled { opacity: 0.3; cursor: default; }
+.modal-nav-btn:disabled:hover { border-color: var(--border2); color: var(--text-muted); }
+
+.modal-nav-btn.primary {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+  letter-spacing: 0.1em;
+}
+.modal-nav-btn.primary:hover { background: var(--navy-hi); border-color: var(--navy-hi); }
 </style>
 </head>
 <body>
@@ -330,6 +538,7 @@ h1 {
 <header>
   <h1>Clock Cipher</h1>
   <p class="subtitle">The wheel of letters turns — but meaning stays</p>
+  <button class="help-btn" id="helpBtn">? How to use</button>
 </header>
 
 <div class="main">
@@ -380,6 +589,102 @@ h1 {
   <span>Click &amp; drag the clock</span> to rotate (snaps on release) &nbsp;·&nbsp;
   <span>◀ ▶</span> to nudge one hour
 </p>
+
+<!-- HOW TO USE MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+    <div class="modal-header">
+      <h2 id="modalTitle">How to use</h2>
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    </div>
+
+    <div class="modal-progress" id="modalProgress"></div>
+
+    <div class="modal-steps" id="modalSteps">
+
+      <div class="modal-step active" data-step="0">
+        <div class="step-num">Step 1 of 5</div>
+        <div class="step-title">What is a clock cipher?</div>
+        <div class="step-body">
+          A clock cipher maps <strong>12 letters</strong> onto the positions of a clock face — 12, 1, 2 … 11. To send a secret message, replace each letter with its clock position number. To read one, do the reverse. Rotating the wheel creates a different mapping, acting as the cipher <strong>key</strong>.
+        </div>
+        <div class="step-illus">
+          Position &nbsp;<span class="hi">12</span>&nbsp; → letter &nbsp;<span class="hi">A</span><br>
+          Position &nbsp;<span class="hi"> 1</span>&nbsp; → letter &nbsp;<span class="hi">B</span><br>
+          Position &nbsp;<span class="hi"> 2</span>&nbsp; → letter &nbsp;<span class="hi">C</span><br>
+          <span class="lo">… and so on around the face</span>
+        </div>
+      </div>
+
+      <div class="modal-step" data-step="1">
+        <div class="step-num">Step 2 of 5</div>
+        <div class="step-title">Assign letters to the wheel</div>
+        <div class="step-body">
+          Use the <strong>Cipher Letters</strong> panel on the right. Type one letter per row — the cursor advances automatically so you can fill all 12 positions quickly. The number beside each row is its clock position (12, 1, 2 … 11). Drag the <strong>⠿ handle</strong> on any row to swap two letters around.
+        </div>
+        <div class="step-illus">
+          <span class="lo">12</span> &nbsp;[<span class="hi">A</span>]&nbsp;
+          <span class="lo">1</span> &nbsp;[<span class="hi">B</span>]&nbsp;
+          <span class="lo">2</span> &nbsp;[<span class="hi">C</span>]&nbsp;
+          <span class="lo">3</span> &nbsp;[<span class="hi">D</span>]&nbsp;
+          <span class="lo">4</span> &nbsp;[<span class="hi">E</span>]&nbsp;
+          <span class="lo">5</span> &nbsp;[<span class="hi">F</span>]&nbsp; …<br>
+          <span class="lo">Letters appear live on the clock face as you type</span>
+        </div>
+      </div>
+
+      <div class="modal-step" data-step="2">
+        <div class="step-num">Step 3 of 5</div>
+        <div class="step-title">Rotate the wheel to set the key</div>
+        <div class="step-body">
+          <strong>Click and drag</strong> the clock face to spin it — it snaps to the nearest hour position when you release. Use the <strong>◀ ▶ buttons</strong> to nudge one hour at a time. The fixed numbers in the outer ring never move, so you can always see which letter is currently under each position. Hit <strong>↺ Reset</strong> to return to 0°.
+        </div>
+        <div class="step-illus">
+          Rotate <span class="hi">+2 hours</span> (60°) with A–F assigned:<br>
+          <span class="lo">12</span> → <span class="hi">C</span> &nbsp;
+          <span class="lo">1</span> → <span class="hi">D</span> &nbsp;
+          <span class="lo">2</span> → <span class="hi">E</span> &nbsp;
+          <span class="lo">3</span> → <span class="hi">F</span> …<br>
+          <span class="lo">The rotation is the shared secret between sender and receiver</span>
+        </div>
+      </div>
+
+      <div class="modal-step" data-step="3">
+        <div class="step-num">Step 4 of 5</div>
+        <div class="step-title">Decode a message</div>
+        <div class="step-body">
+          Type (or paste) a sequence of <strong>numbers 1–12</strong> into the Message box. Each number is instantly replaced by the letter currently sitting at that clock position. Spaces and punctuation pass through unchanged, so you can include them freely between your numbers.
+        </div>
+        <div class="step-illus">
+          Input: &nbsp;<span class="hi">3 1 20 5</span><br>
+          Output: &nbsp;<span class="hi">D B ? F</span><br>
+          <span class="lo">(· shown for positions with no letter assigned)</span>
+        </div>
+      </div>
+
+      <div class="modal-step" data-step="4">
+        <div class="step-num">Step 5 of 5</div>
+        <div class="step-title">Encode a message</div>
+        <div class="step-body">
+          Type <strong>plain letters</strong> into the Message box instead. Any letter that appears on the wheel is replaced by its current clock-position number. Letters not on the wheel are left as-is. Rotate the wheel to a different key and the whole output updates instantly — making it easy to compare encodings at different offsets.
+        </div>
+        <div class="step-illus">
+          Input: &nbsp;<span class="hi">CAFE</span><br>
+          Output: &nbsp;<span class="hi">3 1 6 5</span><br>
+          <span class="lo">Rotate the wheel — the numbers change automatically</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button class="modal-nav-btn" id="modalPrev" disabled>◀ Back</button>
+      <button class="modal-nav-btn primary" id="modalNext">Next ▶</button>
+    </div>
+
+  </div>
+</div>
 
 <script>
 const NUM = 12;
@@ -783,6 +1088,78 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   buildPanel(); updateClock();
 });
 document.getElementById('cipher-input').addEventListener('input', updateCipher);
+
+/* ── HOW TO USE MODAL ──────────────────────────── */
+(function () {
+  const backdrop = document.getElementById('modalBackdrop');
+  const steps    = Array.from(document.querySelectorAll('.modal-step'));
+  const progress = document.getElementById('modalProgress');
+  const prevBtn  = document.getElementById('modalPrev');
+  const nextBtn  = document.getElementById('modalNext');
+  let current    = 0;
+
+  // Build progress dots
+  steps.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'prog-dot' + (i === 0 ? ' active' : '');
+    dot.dataset.i = i;
+    progress.appendChild(dot);
+  });
+
+  function goTo(idx) {
+    const from = steps[current];
+    from.classList.remove('active');
+    from.classList.add('exit');
+    setTimeout(() => from.classList.remove('exit'), 280);
+
+    current = idx;
+    steps[current].classList.add('active');
+
+    // Dots
+    progress.querySelectorAll('.prog-dot').forEach((d, i) =>
+      d.classList.toggle('active', i === current));
+
+    prevBtn.disabled = current === 0;
+    nextBtn.textContent = current === steps.length - 1 ? 'Done ✓' : 'Next ▶';
+    nextBtn.classList.toggle('primary', true);
+  }
+
+  function openModal() {
+    goTo(0);
+    // Ensure step 0 is visually clean if re-opening
+    steps.forEach((s, i) => {
+      s.classList.toggle('active', i === 0);
+      s.classList.remove('exit');
+    });
+    backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('helpBtn').addEventListener('click', openModal);
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+
+  backdrop.addEventListener('click', e => {
+    if (e.target === backdrop) closeModal();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (!backdrop.classList.contains('open')) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowRight' && current < steps.length - 1) goTo(current + 1);
+    if (e.key === 'ArrowLeft'  && current > 0)                 goTo(current - 1);
+  });
+
+  prevBtn.addEventListener('click', () => { if (current > 0) goTo(current - 1); });
+  nextBtn.addEventListener('click', () => {
+    if (current < steps.length - 1) goTo(current + 1);
+    else closeModal();
+  });
+})();
 
 /* ── INIT ──────────────────────────────────────── */
 buildClock();
