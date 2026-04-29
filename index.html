@@ -9,18 +9,18 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg:          #f0ebe2;
-  --surface:     #faf7f2;
-  --surface2:    #f2ede5;
-  --border:      #d8cfc4;
-  --border2:     #c4b8aa;
-  --navy:        #2a4080;
-  --navy-hi:     #1c3060;
-  --navy-lo:     #7090c8;
-  --navy-dim:    #4060a0;
-  --text:        #4a4540;
-  --text-muted:  #a09888;
-  --text-bright: #1a1510;
+  --bg:        #f0ebe2;
+  --surface:   #faf7f2;
+  --surface2:  #f2ede5;
+  --border:    #d8cfc4;
+  --border2:   #c4b8aa;
+  --navy:      #2a4080;
+  --navy-hi:   #1c3060;
+  --navy-lo:   #7090c8;
+  --navy-dim:  #4060a0;
+  --text:      #4a4540;
+  --muted:     #a09888;
+  --bright:    #1a1510;
 }
 
 body {
@@ -37,7 +37,7 @@ body {
 header { text-align: center; margin-bottom: 40px; }
 
 h1 {
-  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-family: 'Courier Prime', monospace;
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: 0.55em;
@@ -48,14 +48,31 @@ h1 {
 
 .subtitle {
   font-style: italic;
-  color: var(--text-muted);
+  color: var(--muted);
   font-size: 0.9rem;
   letter-spacing: 0.06em;
+  margin-bottom: 10px;
 }
 
+.help-btn {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  padding: 5px 16px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: border-color .15s, color .15s;
+}
+.help-btn:hover { border-color: var(--navy-lo); color: var(--navy); }
+
+/* ── MAIN LAYOUT ───────────────────────────────── */
 .main {
   display: flex;
-  gap: 52px;
+  gap: 48px;
   align-items: flex-start;
   flex-wrap: wrap;
   justify-content: center;
@@ -67,6 +84,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   gap: 14px;
+  flex-shrink: 0;
 }
 
 #clock-svg {
@@ -75,7 +93,6 @@ h1 {
   touch-action: none;
   display: block;
 }
-
 #clock-svg.rotating { cursor: grabbing; }
 
 .clock-controls {
@@ -85,34 +102,31 @@ h1 {
   font-family: 'Courier Prime', monospace;
   font-size: 0.78rem;
 }
-
-.rot-label { color: var(--text-muted); letter-spacing: 0.15em; }
-
+.rot-label { color: var(--muted); letter-spacing: .15em; }
 .rot-val {
   color: var(--navy);
   min-width: 48px;
   text-align: center;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: .05em;
   font-family: 'Courier Prime', monospace;
 }
 
+/* ── BUTTONS ───────────────────────────────────── */
 .btn {
   font-family: 'Courier Prime', monospace;
   font-size: 0.72rem;
-  letter-spacing: 0.12em;
+  letter-spacing: .12em;
   background: none;
   border: 1px solid var(--border2);
-  color: var(--text-muted);
+  color: var(--muted);
   padding: 5px 12px;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  transition: border-color .15s, color .15s, background .15s;
   text-transform: uppercase;
   border-radius: 2px;
 }
-
 .btn:hover { border-color: var(--navy-lo); color: var(--navy); }
-
 .btn.nudge {
   font-size: 0.9rem;
   padding: 4px 11px;
@@ -120,170 +134,181 @@ h1 {
   border-color: var(--navy-lo);
   letter-spacing: 0;
 }
-
-.btn.nudge:hover {
-  background: rgba(42, 64, 128, 0.08);
-  color: var(--navy-hi);
-  border-color: var(--navy-dim);
+.btn.nudge:hover { background: rgba(42,64,128,.08); color: var(--navy-hi); border-color: var(--navy-dim); }
+.btn.accent {
+  border-color: var(--navy-lo);
+  color: var(--navy-dim);
 }
+.btn.accent:hover { background: rgba(42,64,128,.08); color: var(--navy-hi); border-color: var(--navy-dim); }
 
 /* ── PANEL ─────────────────────────────────────── */
 .panel {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 14px;
   padding-top: 2px;
+  width: 210px;
+  flex-shrink: 0;
 }
 
 .panel-title {
   font-family: 'Courier Prime', monospace;
   font-size: 0.68rem;
-  letter-spacing: 0.38em;
-  color: var(--text-muted);
+  letter-spacing: .38em;
+  color: var(--muted);
   text-transform: uppercase;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--border);
 }
+
+.panel-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+select.lang-select {
+  flex: 1;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.74rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--navy-hi);
+  padding: 5px 7px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color .15s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23a09888'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 24px;
+}
+select.lang-select:focus { border-color: var(--navy-dim); }
+
+.slots-wrap {
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border2) transparent;
+}
+.slots-wrap::-webkit-scrollbar { width: 4px; }
+.slots-wrap::-webkit-scrollbar-track { background: transparent; }
+.slots-wrap::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
 
 .slots { display: flex; flex-direction: column; gap: 3px; }
 
 .slot {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 4px 6px;
+  gap: 7px;
+  padding: 3px 5px;
   border: 1px solid transparent;
   border-radius: 3px;
   cursor: grab;
-  transition: background 0.12s, border-color 0.12s;
+  transition: background .12s, border-color .12s;
 }
-
 .slot:active { cursor: grabbing; }
-
-.slot.drag-over {
-  background: rgba(42, 64, 128, 0.07);
-  border-color: var(--navy-lo);
-}
-
-.slot.dragging { opacity: 0.25; }
+.slot.drag-over { background: rgba(42,64,128,.07); border-color: var(--navy-lo); }
+.slot.dragging { opacity: .25; }
 
 .slot-handle {
-  color: var(--text-muted);
-  font-size: 0.72rem;
-  opacity: 0.45;
+  color: var(--muted);
+  font-size: 0.7rem;
+  opacity: .4;
   pointer-events: none;
   user-select: none;
-  line-height: 1;
 }
 
 .slot-pos {
   font-family: 'Courier Prime', monospace;
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  width: 20px;
+  font-size: 0.68rem;
+  color: var(--muted);
+  width: 22px;
   text-align: right;
   flex-shrink: 0;
-  letter-spacing: 0.05em;
 }
 
 .slot-input {
-  width: 46px;
+  width: 42px;
   background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: 2px;
   color: var(--navy-hi);
-  font-family: 'Courier Prime', monospace;
-  font-size: 1rem;
+  font-family: 'Courier Prime', 'Courier New', monospace, 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;
-  padding: 5px 2px;
-  letter-spacing: 0.08em;
+  padding: 4px 2px;
   outline: none;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color .15s, background .15s;
   -webkit-user-drag: none;
 }
-
-.slot-input:focus {
-  border-color: var(--navy-dim);
-  background: rgba(42, 64, 128, 0.05);
-}
+.slot-input:focus { border-color: var(--navy-dim); background: rgba(42,64,128,.05); }
 
 .slot-dot {
-  width: 6px;
-  height: 6px;
+  width: 5px; height: 5px;
   border-radius: 50%;
   background: var(--border);
   flex-shrink: 0;
-  transition: background 0.2s;
+  transition: background .2s;
 }
-
 .slot-dot.filled { background: var(--navy-dim); }
 
 .panel-footer {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   border-top: 1px solid var(--border);
   padding-top: 12px;
 }
 
 /* ── CIPHER SECTION ────────────────────────────── */
 .cipher-section {
-  margin-top: 44px;
+  margin-top: 40px;
   width: 100%;
-  max-width: 760px;
+  max-width: 780px;
   display: flex;
   gap: 16px;
   align-items: flex-start;
   flex-wrap: wrap;
 }
 
-.cipher-col {
-  flex: 1;
-  min-width: 240px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+.cipher-col { flex: 1; min-width: 240px; display: flex; flex-direction: column; gap: 8px; }
 
 .cipher-label {
   font-family: 'Courier Prime', monospace;
   font-size: 0.68rem;
-  letter-spacing: 0.38em;
-  color: var(--text-muted);
+  letter-spacing: .38em;
+  color: var(--muted);
   text-transform: uppercase;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
 }
 
 #cipher-input {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Courier Prime', 'Courier New', monospace, sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 3px;
-  color: var(--text-bright);
+  color: var(--bright);
   padding: 12px 14px;
   resize: vertical;
   min-height: 90px;
   outline: none;
-  letter-spacing: 0.05em;
+  letter-spacing: .05em;
   line-height: 1.65;
-  transition: border-color 0.15s;
+  transition: border-color .15s;
 }
-
 #cipher-input:focus { border-color: var(--navy-dim); }
-
-#cipher-input::placeholder {
-  color: var(--text-muted);
-  font-weight: 400;
-  font-style: italic;
-}
+#cipher-input::placeholder { color: var(--muted); font-weight: 400; font-style: italic; }
 
 #cipher-output {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Courier Prime', 'Courier New', monospace, sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
   background: var(--surface2);
@@ -292,7 +317,7 @@ h1 {
   color: var(--navy-hi);
   padding: 12px 14px;
   min-height: 90px;
-  letter-spacing: 0.05em;
+  letter-spacing: .05em;
   line-height: 1.65;
   white-space: pre-wrap;
   word-break: break-word;
@@ -300,53 +325,31 @@ h1 {
 
 .cipher-arrow {
   padding-top: 36px;
-  color: var(--text-muted);
+  color: var(--muted);
   font-size: 1.3rem;
   flex-shrink: 0;
 }
 
-.cipher-note {
-  font-style: italic;
-  font-size: 0.76rem;
-  color: var(--text-muted);
-}
+.cipher-note { font-style: italic; font-size: 0.76rem; color: var(--muted); }
 
-/* ── FOOTER ────────────────────────────────────── */
+/* ── HINT ──────────────────────────────────────── */
 .hint {
   font-style: italic;
-  color: var(--text-muted);
+  color: var(--muted);
   font-size: 0.82rem;
   text-align: center;
   margin-top: 36px;
   max-width: 560px;
   line-height: 1.75;
 }
-
 .hint span { color: var(--navy-dim); }
 
-/* ── HOW TO USE BUTTON ─────────────────────────── */
-.help-btn {
-  margin-top: 14px;
-  font-family: 'Courier Prime', monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  background: none;
-  border: 1px solid var(--border2);
-  color: var(--text-muted);
-  padding: 5px 16px;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: border-color 0.15s, color 0.15s;
-}
-.help-btn:hover { border-color: var(--navy-lo); color: var(--navy); }
-
-/* ── MODAL OVERLAY ─────────────────────────────── */
+/* ── MODAL ─────────────────────────────────────── */
 .modal-backdrop {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(240, 235, 226, 0.88);
+  background: rgba(240,235,226,.88);
   backdrop-filter: blur(3px);
   z-index: 100;
   align-items: center;
@@ -361,7 +364,6 @@ h1 {
   border-radius: 4px;
   max-width: 560px;
   width: 100%;
-  padding: 0;
   position: relative;
   max-height: 90vh;
   display: flex;
@@ -376,30 +378,21 @@ h1 {
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
-
 .modal-header h2 {
   font-family: 'Courier Prime', monospace;
   font-size: 0.72rem;
-  letter-spacing: 0.38em;
+  letter-spacing: .38em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--muted);
   font-weight: 700;
 }
-
 .modal-close {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  line-height: 1;
-  padding: 2px 6px;
-  border-radius: 2px;
-  transition: color 0.12s;
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); font-size: 1.1rem; line-height: 1;
+  padding: 2px 6px; border-radius: 2px; transition: color .12s;
 }
-.modal-close:hover { color: var(--text-bright); }
+.modal-close:hover { color: var(--bright); }
 
-/* Step progress dots */
 .modal-progress {
   display: flex;
   gap: 6px;
@@ -408,96 +401,43 @@ h1 {
   padding: 14px 0 0;
   flex-shrink: 0;
 }
-
 .prog-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+  width: 6px; height: 6px; border-radius: 50%;
   background: var(--border2);
-  transition: background 0.2s, transform 0.2s;
+  transition: background .2s, transform .2s;
 }
-.prog-dot.active {
-  background: var(--navy-dim);
-  transform: scale(1.35);
-}
+.prog-dot.active { background: var(--navy-dim); transform: scale(1.35); }
 
-/* Step content area */
-.modal-steps {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
-  min-height: 280px;
-}
+.modal-steps { flex: 1; overflow: hidden; position: relative; min-height: 290px; }
 
 .modal-step {
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   padding: 28px 28px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  opacity: 0;
-  transform: translateX(32px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  display: flex; flex-direction: column; gap: 14px;
+  opacity: 0; transform: translateX(32px);
+  transition: opacity .25s ease, transform .25s ease;
   pointer-events: none;
 }
+.modal-step.active  { opacity: 1; transform: translateX(0); pointer-events: auto; }
+.modal-step.exit    { opacity: 0; transform: translateX(-32px); }
 
-.modal-step.active {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
-}
+.step-num  { font-family: 'Courier Prime', monospace; font-size: .65rem; letter-spacing: .2em; color: var(--navy-lo); text-transform: uppercase; }
+.step-title { font-size: 1.05rem; font-weight: 700; color: var(--bright); line-height: 1.3; }
+.step-body  { font-size: .88rem; color: var(--text); line-height: 1.8; }
+.step-body strong { color: var(--navy-hi); font-weight: 700; }
 
-.modal-step.exit {
-  opacity: 0;
-  transform: translateX(-32px);
-}
-
-.step-num {
-  font-family: 'Courier Prime', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  color: var(--navy-lo);
-  text-transform: uppercase;
-}
-
-.step-title {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--text-bright);
-  line-height: 1.3;
-}
-
-.step-body {
-  font-size: 0.88rem;
-  color: var(--text);
-  line-height: 1.8;
-}
-
-.step-body strong {
-  color: var(--navy-hi);
-  font-weight: 700;
-}
-
-/* Step illustration */
 .step-illus {
-  margin-top: auto;
-  padding-top: 10px;
+  margin-top: auto; padding: 10px 14px;
   font-family: 'Courier Prime', monospace;
-  font-size: 0.82rem;
-  color: var(--text-muted);
+  font-size: .82rem; color: var(--muted);
   background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: 3px;
-  padding: 10px 14px;
-  letter-spacing: 0.04em;
   line-height: 1.6;
 }
-
 .step-illus .hi { color: var(--navy-hi); font-weight: 700; }
-.step-illus .lo { color: var(--text-muted); }
+.step-illus .lo { color: var(--muted); }
 
-/* Modal footer nav */
 .modal-footer {
   display: flex;
   align-items: center;
@@ -506,29 +446,19 @@ h1 {
   border-top: 1px solid var(--border);
   flex-shrink: 0;
 }
-
 .modal-nav-btn {
   font-family: 'Courier Prime', monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  background: none;
-  border: 1px solid var(--border2);
-  color: var(--text-muted);
-  padding: 6px 16px;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+  background: none; border: 1px solid var(--border2);
+  color: var(--muted); padding: 6px 16px;
+  cursor: pointer; border-radius: 2px;
+  transition: border-color .15s, color .15s, background .15s;
 }
 .modal-nav-btn:hover { border-color: var(--navy-lo); color: var(--navy); }
-.modal-nav-btn:disabled { opacity: 0.3; cursor: default; }
-.modal-nav-btn:disabled:hover { border-color: var(--border2); color: var(--text-muted); }
-
+.modal-nav-btn:disabled { opacity: .3; cursor: default; }
+.modal-nav-btn:disabled:hover { border-color: var(--border2); color: var(--muted); }
 .modal-nav-btn.primary {
-  background: var(--navy);
-  border-color: var(--navy);
-  color: #fff;
-  letter-spacing: 0.1em;
+  background: var(--navy); border-color: var(--navy); color: #fff;
 }
 .modal-nav-btn.primary:hover { background: var(--navy-hi); border-color: var(--navy-hi); }
 </style>
@@ -543,38 +473,64 @@ h1 {
 
 <div class="main">
 
-  <!-- CLOCK -->
   <div class="clock-wrap">
-    <svg id="clock-svg" width="360" height="360" viewBox="0 0 360 360"></svg>
+    <svg id="clock-svg" width="380" height="380" viewBox="0 0 380 380"></svg>
     <div class="clock-controls">
-      <button class="btn nudge" id="nudgeLeft"  title="Back one hour">◀</button>
+      <button class="btn nudge" id="nudgeLeft"  title="Back one position">◀</button>
       <span class="rot-label">ROT</span>
       <span class="rot-val"   id="rotVal">000°</span>
-      <button class="btn" id="resetBtn">↺ Reset</button>
-      <button class="btn" id="snapBtn">⊙ Snap</button>
-      <button class="btn nudge" id="nudgeRight" title="Forward one hour">▶</button>
+      <button class="btn"     id="resetBtn">↺ Reset</button>
+      <button class="btn nudge" id="nudgeRight" title="Forward one position">▶</button>
     </div>
   </div>
 
-  <!-- PANEL -->
   <div class="panel">
     <div class="panel-title">Cipher Letters</div>
-    <div class="slots" id="slots"></div>
+
+    <div class="panel-controls">
+      <select class="lang-select" id="langSelect">
+        <option value="custom12">Custom (12)</option>
+        <optgroup label="── Latin scripts ──────────">
+          <option value="english">English (26)</option>
+          <option value="french">French — base (26)</option>
+          <option value="frenchExt">French — accents (33)</option>
+          <option value="spanish">Spanish — base (27)</option>
+          <option value="spanishExt">Spanish — accents (33)</option>
+          <option value="italian">Italian — base (26)</option>
+          <option value="italianExt">Italian — accents (31)</option>
+          <option value="german">German (30)</option>
+        </optgroup>
+        <optgroup label="── Other scripts ───────────">
+          <option value="greek">Greek (24)</option>
+          <option value="russian">Russian (33)</option>
+          <option value="hebrew">Hebrew (22)</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="panel-controls">
+      <button class="btn accent" id="fillBtn"      style="flex:1">↓ Fill</button>
+      <button class="btn accent" id="randomizeBtn" style="flex:1">⚄ Shuffle</button>
+    </div>
+
+    <div class="slots-wrap">
+      <div class="slots" id="slots"></div>
+    </div>
+
     <div class="panel-footer">
-      <button class="btn" id="clearBtn">✕ Clear All</button>
+      <button class="btn" id="clearBtn" style="flex:1">✕ Clear</button>
     </div>
   </div>
 
 </div>
 
-<!-- CIPHER BOX -->
 <div class="cipher-section">
   <div class="cipher-col">
     <div class="cipher-label">Message</div>
     <textarea id="cipher-input"
-      placeholder="Numbers 1–12 to decode, or letters to encode…"
+      placeholder="Numbers to decode, or letters to encode…"
       spellcheck="false" autocomplete="off"></textarea>
-    <div class="cipher-note">Numbers 1–12 → letters &nbsp;·&nbsp; Letters → position numbers</div>
+    <div class="cipher-note" id="cipher-note"></div>
   </div>
   <div class="cipher-arrow">→</div>
   <div class="cipher-col">
@@ -584,126 +540,181 @@ h1 {
 </div>
 
 <p class="hint">
-  Type into each position &nbsp;·&nbsp;
-  <span>Drag a row</span> to reorder &nbsp;·&nbsp;
-  <span>Click &amp; drag the clock</span> to rotate (snaps on release) &nbsp;·&nbsp;
-  <span>◀ ▶</span> to nudge one hour
+  <span>Select a language</span> to configure the wheel &nbsp;·&nbsp;
+  <span>Fill</span> or <span>Shuffle</span> to populate &nbsp;·&nbsp;
+  <span>Drag the clock</span> to rotate (snaps on release) &nbsp;·&nbsp;
+  <span>◀ ▶</span> to nudge one step
 </p>
 
-<!-- HOW TO USE MODAL -->
+<!-- MODAL -->
 <div class="modal-backdrop" id="modalBackdrop">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-
+  <div class="modal" role="dialog" aria-modal="true">
     <div class="modal-header">
-      <h2 id="modalTitle">How to use</h2>
-      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <h2>How to use</h2>
+      <button class="modal-close" id="modalClose">✕</button>
     </div>
-
     <div class="modal-progress" id="modalProgress"></div>
-
     <div class="modal-steps" id="modalSteps">
 
       <div class="modal-step active" data-step="0">
-        <div class="step-num">Step 1 of 5</div>
+        <div class="step-num">Step 1 of 6</div>
         <div class="step-title">What is a clock cipher?</div>
         <div class="step-body">
-          A clock cipher maps <strong>12 letters</strong> onto the positions of a clock face — 12, 1, 2 … 11. To send a secret message, replace each letter with its clock position number. To read one, do the reverse. Rotating the wheel creates a different mapping, acting as the cipher <strong>key</strong>.
+          A clock cipher maps letters onto positions around a clock face. To encode a message, replace each letter with its position number. To decode, reverse the process. <strong>Rotating the wheel</strong> shifts every letter to a different position, acting as the cipher key — both sender and receiver must agree on the rotation.
         </div>
         <div class="step-illus">
-          Position &nbsp;<span class="hi">12</span>&nbsp; → letter &nbsp;<span class="hi">A</span><br>
-          Position &nbsp;<span class="hi"> 1</span>&nbsp; → letter &nbsp;<span class="hi">B</span><br>
-          Position &nbsp;<span class="hi"> 2</span>&nbsp; → letter &nbsp;<span class="hi">C</span><br>
-          <span class="lo">… and so on around the face</span>
+          Position <span class="hi">1</span> → letter <span class="hi">A</span><br>
+          Position <span class="hi">2</span> → letter <span class="hi">B</span><br>
+          Position <span class="hi">3</span> → letter <span class="hi">C</span><br>
+          <span class="lo">…and so on around the face</span>
         </div>
       </div>
 
       <div class="modal-step" data-step="1">
-        <div class="step-num">Step 2 of 5</div>
-        <div class="step-title">Assign letters to the wheel</div>
+        <div class="step-num">Step 2 of 6</div>
+        <div class="step-title">Choose your alphabet</div>
         <div class="step-body">
-          Use the <strong>Cipher Letters</strong> panel on the right. Type one letter per row — the cursor advances automatically so you can fill all 12 positions quickly. The number beside each row is its clock position (12, 1, 2 … 11). Drag the <strong>⠿ handle</strong> on any row to swap two letters around.
+          Use the <strong>language dropdown</strong> to configure the wheel for a full alphabet. The clock expands to fit any alphabet — from 22 letters (Hebrew) up to 33 (Russian). Click <strong>↓ Fill</strong> to populate letters in standard order, or <strong>⚄ Shuffle</strong> to randomise their positions for a stronger cipher.
         </div>
         <div class="step-illus">
-          <span class="lo">12</span> &nbsp;[<span class="hi">A</span>]&nbsp;
-          <span class="lo">1</span> &nbsp;[<span class="hi">B</span>]&nbsp;
-          <span class="lo">2</span> &nbsp;[<span class="hi">C</span>]&nbsp;
-          <span class="lo">3</span> &nbsp;[<span class="hi">D</span>]&nbsp;
-          <span class="lo">4</span> &nbsp;[<span class="hi">E</span>]&nbsp;
-          <span class="lo">5</span> &nbsp;[<span class="hi">F</span>]&nbsp; …<br>
-          <span class="lo">Letters appear live on the clock face as you type</span>
+          English (26): <span class="hi">A B C D E … Z</span><br>
+          Russian (33): <span class="hi">А Б В Г Д … Я</span><br>
+          Greek (24):   <span class="hi">Α Β Γ Δ Ε … Ω</span><br>
+          <span class="lo">Or use Custom (12) for any 12-symbol set</span>
         </div>
       </div>
 
       <div class="modal-step" data-step="2">
-        <div class="step-num">Step 3 of 5</div>
-        <div class="step-title">Rotate the wheel to set the key</div>
+        <div class="step-num">Step 3 of 6</div>
+        <div class="step-title">Assign letters manually</div>
         <div class="step-body">
-          <strong>Click and drag</strong> the clock face to spin it — it snaps to the nearest hour position when you release. Use the <strong>◀ ▶ buttons</strong> to nudge one hour at a time. The fixed numbers in the outer ring never move, so you can always see which letter is currently under each position. Hit <strong>↺ Reset</strong> to return to 0°.
+          Each row in the <strong>Cipher Letters</strong> panel corresponds to one clock position. Type a letter into the box — the cursor advances automatically so you can fill all positions quickly. Drag any row by its <strong>⠿ handle</strong> to swap two letters around the wheel.
         </div>
         <div class="step-illus">
-          Rotate <span class="hi">+2 hours</span> (60°) with A–F assigned:<br>
-          <span class="lo">12</span> → <span class="hi">C</span> &nbsp;
-          <span class="lo">1</span> → <span class="hi">D</span> &nbsp;
-          <span class="lo">2</span> → <span class="hi">E</span> &nbsp;
-          <span class="lo">3</span> → <span class="hi">F</span> …<br>
-          <span class="lo">The rotation is the shared secret between sender and receiver</span>
+          <span class="lo"> 1</span> [<span class="hi">A</span>]&nbsp;&nbsp;
+          <span class="lo"> 2</span> [<span class="hi">B</span>]&nbsp;&nbsp;
+          <span class="lo"> 3</span> [<span class="hi">C</span>]&nbsp;&nbsp;
+          <span class="lo"> 4</span> [<span class="hi">D</span>] …<br>
+          <span class="lo">Letters appear live on the clock face as you type</span>
         </div>
       </div>
 
       <div class="modal-step" data-step="3">
-        <div class="step-num">Step 4 of 5</div>
-        <div class="step-title">Decode a message</div>
+        <div class="step-num">Step 4 of 6</div>
+        <div class="step-title">Rotate the wheel to set the key</div>
         <div class="step-body">
-          Type (or paste) a sequence of <strong>numbers 1–12</strong> into the Message box. Each number is instantly replaced by the letter currently sitting at that clock position. Spaces and punctuation pass through unchanged, so you can include them freely between your numbers.
+          <strong>Click and drag</strong> the clock face to spin it — it snaps to the nearest position on release. Use the <strong>◀ ▶ buttons</strong> to step precisely one position at a time. The fixed numbers in the outer ring never move, so you can always read which letter sits under each position number. Hit <strong>↺ Reset</strong> to return to 0°.
         </div>
         <div class="step-illus">
-          Input: &nbsp;<span class="hi">3 1 20 5</span><br>
-          Output: &nbsp;<span class="hi">D B ? F</span><br>
-          <span class="lo">(· shown for positions with no letter assigned)</span>
+          Rotate <span class="hi">+2 steps</span> with A–E assigned:<br>
+          Position <span class="hi">1</span> → <span class="hi">C</span> &nbsp;
+          Position <span class="hi">2</span> → <span class="hi">D</span> &nbsp;
+          Position <span class="hi">3</span> → <span class="hi">E</span> …<br>
+          <span class="lo">The rotation offset is the shared secret key</span>
         </div>
       </div>
 
       <div class="modal-step" data-step="4">
-        <div class="step-num">Step 5 of 5</div>
-        <div class="step-title">Encode a message</div>
+        <div class="step-num">Step 5 of 6</div>
+        <div class="step-title">Decode a message</div>
         <div class="step-body">
-          Type <strong>plain letters</strong> into the Message box instead. Any letter that appears on the wheel is replaced by its current clock-position number. Letters not on the wheel are left as-is. Rotate the wheel to a different key and the whole output updates instantly — making it easy to compare encodings at different offsets.
+          Type (or paste) a sequence of <strong>position numbers</strong> into the Message box. Each number is instantly replaced by the letter sitting at that position on the current wheel. Spaces and punctuation pass through unchanged. The output updates live as you rotate the wheel, making it easy to try different keys.
         </div>
         <div class="step-illus">
-          Input: &nbsp;<span class="hi">CAFE</span><br>
-          Output: &nbsp;<span class="hi">3 1 6 5</span><br>
+          Input:  <span class="hi">3 1 20 5</span><br>
+          Output: <span class="hi">C A T E</span><br>
+          <span class="lo">(· shown for positions with no letter assigned)</span>
+        </div>
+      </div>
+
+      <div class="modal-step" data-step="5">
+        <div class="step-num">Step 6 of 6</div>
+        <div class="step-title">Encode a message</div>
+        <div class="step-body">
+          Type <strong>plain letters</strong> into the Message box instead. Any letter present on the wheel is replaced by its current position number. Letters not on the wheel are left unchanged. Rotating the wheel updates every number instantly — useful for comparing encodings at different key offsets.
+        </div>
+        <div class="step-illus">
+          Input:  <span class="hi">CAFE</span><br>
+          Output: <span class="hi">3 1 6 5</span><br>
           <span class="lo">Rotate the wheel — the numbers change automatically</span>
         </div>
       </div>
 
     </div>
-
     <div class="modal-footer">
       <button class="modal-nav-btn" id="modalPrev" disabled>◀ Back</button>
       <button class="modal-nav-btn primary" id="modalNext">Next ▶</button>
     </div>
-
   </div>
 </div>
 
 <script>
-const NUM = 12;
-const CX = 180, CY = 180;
-const OUTER_R  = 168;
-const FACE_R   = 156;
-const TICK_OUT = 153;
-const TICK_MAJ = 139;
-const TICK_MIN = 146;
-const LETTER_R = 118;
-const CIRCLE_R = 17;
-const NUM_R    = 162; // fixed outer numbers radius
+/* ── LANGUAGE PRESETS ──────────────────────────── */
+const LANGUAGES = {
+  // ── Custom ──────────────────────────────────────
+  custom12:    { label: 'Custom (12)',            num: 12, alphabet: [] },
 
-let letters = Array(NUM).fill('');
-let clockRotation = 0;
-let isRotating = false;
+  // ── English ─────────────────────────────────────
+  english:     { label: 'English (26)',           num: 26, alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('') },
+
+  // ── French ──────────────────────────────────────
+  // Base: A–Z only
+  french:      { label: 'French — base (26)',     num: 26, alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('') },
+  // Extended: base + À Â Ç È É Ê Î Œ Ù Û interleaved alphabetically = 33 positions
+  frenchExt:   { label: 'French — accents (33)',  num: 33,
+    alphabet: 'A À B C Ç D E É È Ê F G H I Î J K L M N O Œ P Q R S T U Ù Û V W X Y Z'.split(' ') },
+
+  // ── Spanish ─────────────────────────────────────
+  // Base: A–Z + Ñ = 27
+  spanish:     { label: 'Spanish — base (27)',    num: 27, alphabet: 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('') },
+  // Extended: + Á É Í Ó Ú Ü = 33 positions
+  spanishExt:  { label: 'Spanish — accents (33)', num: 33,
+    alphabet: 'A Á B C D E É F G H I Í J K L M N Ñ O Ó P Q R S T U Ú Ü V W X Y Z'.split(' ') },
+
+  // ── Italian ─────────────────────────────────────
+  // Standard Italian uses accented forms on final vowels; 26 base + À È É Ì Ò Ó Ù = 31
+  italian:     { label: 'Italian — base (26)',    num: 26, alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('') },
+  italianExt:  { label: 'Italian — accents (31)', num: 31,
+    alphabet: 'A À B C D E È É F G H I Ì J K L M N O Ò Ó P Q R S T U Ù V W X Y Z'.split(' ') },
+
+  // ── German ──────────────────────────────────────
+  // A–Z + Ä Ö Ü ß = 30 (already extended by convention)
+  german:      { label: 'German (30)',            num: 30, alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ\u00DF'.split('') },
+
+  // ── Non-Latin ───────────────────────────────────
+  greek:       { label: 'Greek (24)',             num: 24, alphabet: 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'.split('') },
+  russian:     { label: 'Russian (33)',           num: 33, alphabet: 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'.split('') },
+  hebrew:      { label: 'Hebrew (22)',            num: 22, alphabet: 'אבגדהוזחטיכלמנסעפצקרשת'.split('') },
+};
+
+/* ── STATE ─────────────────────────────────────── */
+let currentLang    = 'custom12';
+let NUM            = 12;
+let letters        = Array(NUM).fill('');
+let clockRotation  = 0;
+let isRotating     = false;
 let dragStartAngle = 0;
-let dragStartRotation = 0;
-let dragFromIdx = null;
+let dragStartRot   = 0;
+let dragFromIdx    = null;
+
+/* ── SVG CONSTANTS (recomputed on rebuild) ─────── */
+const CX = 190, CY = 190;
+const OUTER_R  = 178;
+const FACE_R   = 166;
+const TICK_OUT = 163;
+const TICK_MAJ = 149;
+const TICK_MIN = 156;
+
+function getDynamic() {
+  // Scale circle radius and letter ring to fit NUM positions
+  const base    = 2 * Math.PI * 126 / NUM;
+  const circleR = Math.max(7, Math.min(18, Math.floor(base * 0.40)));
+  const fontSz  = Math.max(6, Math.min(15, circleR - 2));
+  const letterR = FACE_R - circleR - 8;
+  const numR    = OUTER_R - 8;            // fixed outer number radius
+  const step    = 360 / NUM;             // degrees per position
+  return { circleR, fontSz, letterR, numR, step };
+}
 
 const svg = document.getElementById('clock-svg');
 
@@ -715,67 +726,76 @@ function ns(tag, attrs = {}) {
 
 function posAngleDeg(i) { return (i / NUM) * 360 - 90; }
 
-function posXY(i, r = LETTER_R) {
+function posXY(i, r) {
   const a = posAngleDeg(i) * Math.PI / 180;
-  return {
-    x: +(CX + r * Math.cos(a)).toFixed(3),
-    y: +(CY + r * Math.sin(a)).toFixed(3)
-  };
+  return { x: +(CX + r * Math.cos(a)).toFixed(3), y: +(CY + r * Math.sin(a)).toFixed(3) };
 }
+
+/* position label: 1-indexed from top going clockwise */
+function posLabel(i) { return String(i + 1); }
 
 /* ── CIPHER LOGIC ──────────────────────────────── */
 function computeCipher(input) {
   if (!input) return '';
-  const steps = Math.round(clockRotation / 30);
+  const steps = Math.round(clockRotation / (360 / NUM));
 
-  // Build mappings after rotation
-  // After rotating by `steps` positions clockwise:
-  //   letter at wheel index i → now under fixed position j = (i + steps) mod 12
-  const posToLetter = {};  // fixed position index → letter
-  const letterToPos = {};  // letter (upper) → position label string
+  const posToLetter = {};
+  const letterToPos = {};
 
   for (let i = 0; i < NUM; i++) {
     const j = ((i + steps) % NUM + NUM) % NUM;
     if (letters[i]) {
       const L = letters[i].toUpperCase();
       posToLetter[j] = L;
-      letterToPos[L] = j === 0 ? '12' : String(j);
+      letterToPos[L] = posLabel(j);
     }
   }
 
-  // Tokenise: grab 2-digit numbers 10–12, single digits 1–9, letters, or other chars
+  // Tokenise greedily: try longest valid number first
   const tokens = [];
-  let i = 0;
-  while (i < input.length) {
-    const ch = input[i];
-    if (ch >= '1' && ch <= '9') {
-      if (ch === '1' && i + 1 < input.length) {
-        const d2 = input[i + 1];
-        if (d2 === '0' || d2 === '1' || d2 === '2') {
-          tokens.push(ch + d2);
-          i += 2;
-          continue;
+  let idx = 0;
+  while (idx < input.length) {
+    const ch = input[idx];
+    const digit = parseInt(ch);
+    if (!isNaN(digit) && digit >= 1) {
+      // Try 2-digit
+      let matched = false;
+      if (idx + 1 < input.length) {
+        const two = parseInt(input[idx] + input[idx + 1]);
+        if (!isNaN(two) && two >= 1 && two <= NUM) {
+          // Also try 3-digit if NUM >= 100 (future-proof, not needed now)
+          tokens.push(String(two));
+          idx += 2;
+          matched = true;
         }
       }
-      tokens.push(ch);
+      if (!matched) {
+        const one = parseInt(ch);
+        if (one >= 1 && one <= NUM) {
+          tokens.push(String(one));
+        } else {
+          tokens.push(ch);
+        }
+        idx++;
+      }
     } else {
       tokens.push(ch);
+      idx++;
     }
-    i++;
   }
 
   return tokens.map(tok => {
     if (/^\d+$/.test(tok)) {
       const n = parseInt(tok);
-      if (n >= 1 && n <= 12) {
-        const j = n % 12; // 12%12=0, 1→1 … 11→11
-        return posToLetter[j] || '·';
+      if (n >= 1 && n <= NUM) {
+        return posToLetter[n - 1] || '·';  // n=1 → index 0
       }
       return tok;
     }
-    if (/^[a-zA-Z]$/.test(tok)) {
-      const L = tok.toUpperCase();
-      return letterToPos[L] !== undefined ? letterToPos[L] : L;
+    // For multi-char tokens (shouldn't happen) or single chars
+    const L = tok.toUpperCase();
+    if (/^[^\s\d]$/.test(tok) && letterToPos[L] !== undefined) {
+      return letterToPos[L];
     }
     return tok;
   }).join('');
@@ -787,85 +807,78 @@ function updateCipher() {
   if (inp && out) out.textContent = computeCipher(inp.value);
 }
 
+function updateNote() {
+  const note = document.getElementById('cipher-note');
+  if (note) note.textContent = `Numbers 1–${NUM} → letters · Letters → position numbers`;
+}
+
 /* ── BUILD CLOCK ───────────────────────────────── */
 function buildClock() {
   svg.innerHTML = '';
+  const { circleR, fontSz, letterR, numR } = getDynamic();
 
-  // Fixed outer decorative ring (stays put)
+  // Fixed outer ring
   svg.appendChild(ns('circle', {
     cx: CX, cy: CY, r: OUTER_R + 6,
     fill: 'none', stroke: '#c8bfb4', 'stroke-width': '1'
   }));
 
-  // ── Rotating group ────────────────────────────
+  // Rotating group
   const g = ns('g', { id: 'clock-g' });
   svg.appendChild(g);
 
   // Bezel
-  g.appendChild(ns('circle', {
-    cx: CX, cy: CY, r: OUTER_R,
-    fill: '#e4ddd2', stroke: '#c0b4a8', 'stroke-width': '2'
-  }));
-
+  g.appendChild(ns('circle', { cx: CX, cy: CY, r: OUTER_R, fill: '#e4ddd2', stroke: '#c0b4a8', 'stroke-width': '2' }));
   // Face
-  g.appendChild(ns('circle', {
-    cx: CX, cy: CY, r: FACE_R,
-    fill: '#fdfaf5', stroke: '#d0c8bc', 'stroke-width': '1.5'
-  }));
+  g.appendChild(ns('circle', { cx: CX, cy: CY, r: FACE_R,  fill: '#fdfaf5', stroke: '#d0c8bc', 'stroke-width': '1.5' }));
 
   // Faint spokes
   for (let i = 0; i < NUM; i++) {
     const aRad = posAngleDeg(i) * Math.PI / 180;
     g.appendChild(ns('line', {
-      x1: +(CX + (LETTER_R - CIRCLE_R - 4) * Math.cos(aRad)).toFixed(2),
-      y1: +(CY + (LETTER_R - CIRCLE_R - 4) * Math.sin(aRad)).toFixed(2),
+      x1: +(CX + (letterR - circleR - 3) * Math.cos(aRad)).toFixed(2),
+      y1: +(CY + (letterR - circleR - 3) * Math.sin(aRad)).toFixed(2),
       x2: +(CX + 6 * Math.cos(aRad)).toFixed(2),
       y2: +(CY + 6 * Math.sin(aRad)).toFixed(2),
-      stroke: '#e4ddd2', 'stroke-width': '0.75'
+      stroke: '#e8e2d8', 'stroke-width': '0.6'
     }));
   }
 
-  // Tick marks (60 total)
-  for (let i = 0; i < 60; i++) {
-    const isMajor = i % 5 === 0;
-    const a = (i / 60) * Math.PI * 2 - Math.PI / 2;
+  // Tick marks — keep 60 for aesthetics regardless of NUM
+  const totalTicks = Math.max(60, NUM * 4);
+  for (let i = 0; i < totalTicks; i++) {
+    const isMajor = i % (totalTicks / NUM) < 1;
+    const a = (i / totalTicks) * Math.PI * 2 - Math.PI / 2;
     g.appendChild(ns('line', {
       x1: +(CX + TICK_OUT * Math.cos(a)).toFixed(2),
       y1: +(CY + TICK_OUT * Math.sin(a)).toFixed(2),
       x2: +(CX + (isMajor ? TICK_MAJ : TICK_MIN) * Math.cos(a)).toFixed(2),
       y2: +(CY + (isMajor ? TICK_MAJ : TICK_MIN) * Math.sin(a)).toFixed(2),
       stroke: isMajor ? '#2a4080' : '#c8c0b4',
-      'stroke-width': isMajor ? '2' : '1',
+      'stroke-width': isMajor ? '1.8' : '0.8',
       'stroke-linecap': 'round'
     }));
   }
 
-  // Dashed letter-ring guide
+  // Dashed guide ring
+  const dashLen   = (2 * Math.PI * letterR / NUM * 0.18).toFixed(1);
+  const dashSpace = (2 * Math.PI * letterR / NUM * 0.82).toFixed(1);
   g.appendChild(ns('circle', {
-    cx: CX, cy: CY, r: LETTER_R,
+    cx: CX, cy: CY, r: letterR,
     fill: 'none', stroke: '#d0c8bc',
-    'stroke-width': '0.5', 'stroke-dasharray': '1.5 8.6'
+    'stroke-width': '0.5', 'stroke-dasharray': `${dashLen} ${dashSpace}`
   }));
 
   // Letter circles + text
   for (let i = 0; i < NUM; i++) {
-    const { x, y } = posXY(i);
-    g.appendChild(ns('circle', {
-      cx: x, cy: y, r: CIRCLE_R + 3,
-      fill: 'none', stroke: '#d0c8bc',
-      'stroke-width': '0.5', id: `ring-${i}`
-    }));
-    g.appendChild(ns('circle', {
-      cx: x, cy: y, r: CIRCLE_R,
-      fill: '#fdfaf5', stroke: '#d8d0c4',
-      'stroke-width': '1', id: `bg-${i}`
-    }));
+    const { x, y } = posXY(i, letterR);
+    g.appendChild(ns('circle', { cx: x, cy: y, r: circleR + 3, fill: 'none', stroke: '#d0c8bc', 'stroke-width': '0.4', id: `ring-${i}` }));
+    g.appendChild(ns('circle', { cx: x, cy: y, r: circleR,     fill: '#fdfaf5', stroke: '#d8d0c4', 'stroke-width': '0.8', id: `bg-${i}` }));
     const txt = ns('text', {
       x, y,
-      'text-anchor': 'middle',
-      'dominant-baseline': 'central',
-      'font-family': "'Courier Prime', 'Courier New', monospace",
-      'font-size': '15', 'font-weight': '700',
+      'text-anchor': 'middle', 'dominant-baseline': 'central',
+      'font-family': "'Courier Prime','Courier New',monospace,'Segoe UI',sans-serif",
+      'font-size': String(fontSz), 'font-weight': '700',
       fill: '#2a4080', id: `lt-${i}`
     });
     txt.textContent = '';
@@ -876,40 +889,45 @@ function buildClock() {
   g.appendChild(ns('circle', { cx: CX, cy: CY, r: 5,   fill: '#2a4080' }));
   g.appendChild(ns('circle', { cx: CX, cy: CY, r: 2.5, fill: '#fdfaf5' }));
 
-  // ── Fixed outer numbers (appended after rotating group, renders on top) ──
+  // ── Fixed outer position numbers ─────────────
   const numG = ns('g', { id: 'fixed-nums' });
   svg.appendChild(numG);
 
+  // For dense alphabets (>24) only show every other number
+  const step = NUM > 24 ? 2 : 1;
+  const numFontSz = Math.max(7, Math.min(10, Math.floor(2 * Math.PI * numR / NUM * 0.28)));
+
   for (let i = 0; i < NUM; i++) {
-    const label = i === 0 ? '12' : String(i);
-    const { x, y } = posXY(i, NUM_R);
+    if (step === 2 && i % 2 !== 0) continue;
+    const { x, y } = posXY(i, numR);
     const txt = ns('text', {
       x, y,
-      'text-anchor': 'middle',
-      'dominant-baseline': 'central',
-      'font-family': "'Courier Prime', 'Courier New', monospace",
-      'font-size': '10', 'font-weight': '700',
+      'text-anchor': 'middle', 'dominant-baseline': 'central',
+      'font-family': "'Courier Prime','Courier New',monospace",
+      'font-size': String(numFontSz), 'font-weight': '700',
       fill: '#5a4a30', opacity: '0.85'
     });
-    txt.textContent = label;
+    txt.textContent = posLabel(i);
     numG.appendChild(txt);
   }
 }
 
-/* ── UPDATE CLOCK DISPLAY ──────────────────────── */
+/* ── UPDATE CLOCK ──────────────────────────────── */
 function updateClock() {
-  document.getElementById('clock-g')
-    .setAttribute('transform', `rotate(${clockRotation},${CX},${CY})`);
+  const g = document.getElementById('clock-g');
+  if (!g) return;
+  g.setAttribute('transform', `rotate(${clockRotation},${CX},${CY})`);
+
+  const { circleR, fontSz, letterR } = getDynamic();
 
   for (let i = 0; i < NUM; i++) {
-    const { x, y } = posXY(i);
+    const { x, y } = posXY(i, letterR);
     const lt  = document.getElementById(`lt-${i}`);
     const bg  = document.getElementById(`bg-${i}`);
     const rng = document.getElementById(`ring-${i}`);
     const has = !!letters[i];
-
     if (lt) {
-      lt.textContent = has ? letters[i].toUpperCase() : '';
+      lt.textContent = has ? letters[i] : '';
       lt.setAttribute('transform', `rotate(${-clockRotation},${x},${y})`);
       lt.setAttribute('fill', has ? '#1c3060' : '#2a4080');
       lt.setAttribute('fill-opacity', has ? '1' : '0.18');
@@ -923,20 +941,20 @@ function updateClock() {
     }
   }
 
-  const deg = ((clockRotation % 360) + 360) % 360;
+  const step = 360 / NUM;
+  const deg  = ((clockRotation % 360) + 360) % 360;
   document.getElementById('rotVal').textContent =
     String(Math.round(deg)).padStart(3, '0') + '°';
 
   updateCipher();
 }
 
-/* ── SLOT PANEL ────────────────────────────────── */
+/* ── BUILD PANEL ───────────────────────────────── */
 function buildPanel() {
   const container = document.getElementById('slots');
   container.innerHTML = '';
 
   for (let i = 0; i < NUM; i++) {
-    const label = i === 0 ? '12' : String(i);
     const slot = document.createElement('div');
     slot.className = 'slot';
     slot.dataset.idx = i;
@@ -944,12 +962,11 @@ function buildPanel() {
 
     slot.innerHTML = `
       <span class="slot-handle">⠿</span>
-      <span class="slot-pos">${label}</span>
+      <span class="slot-pos">${posLabel(i)}</span>
       <input class="slot-input" type="text" maxlength="2"
              value="${letters[i]}" placeholder="·"
              data-idx="${i}" autocomplete="off" spellcheck="false">
-      <span class="slot-dot${letters[i] ? ' filled' : ''}" id="dot-${i}"></span>
-    `;
+      <span class="slot-dot${letters[i] ? ' filled' : ''}" id="dot-${i}"></span>`;
 
     container.appendChild(slot);
     const input = slot.querySelector('input');
@@ -959,7 +976,10 @@ function buildPanel() {
 
     input.addEventListener('input', e => {
       const idx = +e.target.dataset.idx;
-      const val = e.target.value.replace(/[^a-zA-Z]/g, '').slice(-1);
+      // Strip whitespace and digits; take last character; uppercase where possible
+      const raw = e.target.value.replace(/[\s\d]/g, '');
+      const ch  = raw.length ? raw[raw.length - 1] : '';
+      const val = ch ? (ch.toUpperCase().length === 1 ? ch.toUpperCase() : ch) : '';
       letters[idx] = val;
       e.target.value = val;
       const dot = document.getElementById(`dot-${idx}`);
@@ -984,13 +1004,11 @@ function buildPanel() {
       e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.setData('text/plain', String(i));
     });
-
     slot.addEventListener('dragend', () => {
       slot.classList.remove('dragging');
       container.querySelectorAll('.slot').forEach(s => s.classList.remove('drag-over'));
       dragFromIdx = null;
     });
-
     slot.addEventListener('dragover', e => {
       e.preventDefault();
       if (dragFromIdx !== null && dragFromIdx !== i) {
@@ -998,9 +1016,7 @@ function buildPanel() {
         slot.classList.add('drag-over');
       }
     });
-
     slot.addEventListener('dragleave', () => slot.classList.remove('drag-over'));
-
     slot.addEventListener('drop', e => {
       e.preventDefault();
       if (dragFromIdx !== null && dragFromIdx !== i) {
@@ -1012,7 +1028,37 @@ function buildPanel() {
   }
 }
 
-/* ── CLOCK ROTATION DRAG ───────────────────────── */
+/* ── LANGUAGE SWITCH ───────────────────────────── */
+function applyLanguage(key, fill = true) {
+  const lang = LANGUAGES[key];
+  if (!lang) return;
+  currentLang = key;
+  NUM = lang.num;
+  letters = Array(NUM).fill('');
+  if (fill && lang.alphabet.length) {
+    for (let i = 0; i < NUM; i++) letters[i] = lang.alphabet[i] || '';
+  }
+  clockRotation = 0;
+  buildClock();
+  buildPanel();
+  updateClock();
+  updateNote();
+}
+
+function randomizeLetters() {
+  const lang = LANGUAGES[currentLang];
+  const pool = lang.alphabet.length ? [...lang.alphabet] : letters.filter(Boolean);
+  if (!pool.length) return;
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  letters = Array(NUM).fill('').map((_, i) => pool[i] || '');
+  buildPanel();
+  updateClock();
+}
+
+/* ── CLOCK DRAG ROTATE ─────────────────────────── */
 function getMouseAngle(e) {
   const r  = svg.getBoundingClientRect();
   const cx = r.left + r.width  / 2;
@@ -1023,13 +1069,14 @@ function getMouseAngle(e) {
 }
 
 function snapRotation() {
-  clockRotation = Math.round(clockRotation / 30) * 30;
+  const step = 360 / NUM;
+  clockRotation = Math.round(clockRotation / step) * step;
 }
 
 svg.addEventListener('mousedown', e => {
   isRotating = true;
-  dragStartAngle    = getMouseAngle(e);
-  dragStartRotation = clockRotation;
+  dragStartAngle = getMouseAngle(e);
+  dragStartRot   = clockRotation;
   svg.classList.add('rotating');
   e.preventDefault();
 });
@@ -1039,7 +1086,7 @@ document.addEventListener('mousemove', e => {
   let delta = getMouseAngle(e) - dragStartAngle;
   if (delta >  180) delta -= 360;
   if (delta < -180) delta += 360;
-  clockRotation = dragStartRotation + delta;
+  clockRotation = dragStartRot + delta;
   updateClock();
 });
 
@@ -1051,8 +1098,8 @@ document.addEventListener('mouseup', () => {
 
 svg.addEventListener('touchstart', e => {
   isRotating = true;
-  dragStartAngle    = getMouseAngle(e);
-  dragStartRotation = clockRotation;
+  dragStartAngle = getMouseAngle(e);
+  dragStartRot   = clockRotation;
   e.preventDefault();
 }, { passive: false });
 
@@ -1061,7 +1108,7 @@ document.addEventListener('touchmove', e => {
   let delta = getMouseAngle(e) - dragStartAngle;
   if (delta >  180) delta -= 360;
   if (delta < -180) delta += 360;
-  clockRotation = dragStartRotation + delta;
+  clockRotation = dragStartRot + delta;
   updateClock();
 }, { passive: false });
 
@@ -1072,24 +1119,32 @@ document.addEventListener('touchend', () => {
 
 /* ── BUTTONS ───────────────────────────────────── */
 document.getElementById('nudgeLeft').addEventListener('click', () => {
-  clockRotation -= 30; updateClock();
+  clockRotation -= 360 / NUM; updateClock();
 });
 document.getElementById('nudgeRight').addEventListener('click', () => {
-  clockRotation += 30; updateClock();
+  clockRotation += 360 / NUM; updateClock();
 });
 document.getElementById('resetBtn').addEventListener('click', () => {
   clockRotation = 0; updateClock();
-});
-document.getElementById('snapBtn').addEventListener('click', () => {
-  snapRotation(); updateClock();
 });
 document.getElementById('clearBtn').addEventListener('click', () => {
   letters = Array(NUM).fill('');
   buildPanel(); updateClock();
 });
+document.getElementById('fillBtn').addEventListener('click', () => {
+  const lang = LANGUAGES[currentLang];
+  if (lang.alphabet.length) {
+    letters = Array(NUM).fill('').map((_, i) => lang.alphabet[i] || '');
+    buildPanel(); updateClock();
+  }
+});
+document.getElementById('randomizeBtn').addEventListener('click', randomizeLetters);
+document.getElementById('langSelect').addEventListener('change', e => {
+  applyLanguage(e.target.value, true);
+});
 document.getElementById('cipher-input').addEventListener('input', updateCipher);
 
-/* ── HOW TO USE MODAL ──────────────────────────── */
+/* ── MODAL ─────────────────────────────────────── */
 (function () {
   const backdrop = document.getElementById('modalBackdrop');
   const steps    = Array.from(document.querySelectorAll('.modal-step'));
@@ -1098,11 +1153,9 @@ document.getElementById('cipher-input').addEventListener('input', updateCipher);
   const nextBtn  = document.getElementById('modalNext');
   let current    = 0;
 
-  // Build progress dots
   steps.forEach((_, i) => {
     const dot = document.createElement('div');
     dot.className = 'prog-dot' + (i === 0 ? ' active' : '');
-    dot.dataset.i = i;
     progress.appendChild(dot);
   });
 
@@ -1111,26 +1164,21 @@ document.getElementById('cipher-input').addEventListener('input', updateCipher);
     from.classList.remove('active');
     from.classList.add('exit');
     setTimeout(() => from.classList.remove('exit'), 280);
-
     current = idx;
     steps[current].classList.add('active');
-
-    // Dots
     progress.querySelectorAll('.prog-dot').forEach((d, i) =>
       d.classList.toggle('active', i === current));
-
     prevBtn.disabled = current === 0;
     nextBtn.textContent = current === steps.length - 1 ? 'Done ✓' : 'Next ▶';
-    nextBtn.classList.toggle('primary', true);
   }
 
   function openModal() {
-    goTo(0);
-    // Ensure step 0 is visually clean if re-opening
-    steps.forEach((s, i) => {
-      s.classList.toggle('active', i === 0);
-      s.classList.remove('exit');
-    });
+    steps.forEach((s, i) => { s.classList.toggle('active', i === 0); s.classList.remove('exit'); });
+    current = 0;
+    prevBtn.disabled = true;
+    nextBtn.textContent = 'Next ▶';
+    progress.querySelectorAll('.prog-dot').forEach((d, i) =>
+      d.classList.toggle('active', i === 0));
     backdrop.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -1142,29 +1190,21 @@ document.getElementById('cipher-input').addEventListener('input', updateCipher);
 
   document.getElementById('helpBtn').addEventListener('click', openModal);
   document.getElementById('modalClose').addEventListener('click', closeModal);
-
-  backdrop.addEventListener('click', e => {
-    if (e.target === backdrop) closeModal();
-  });
-
+  backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
   document.addEventListener('keydown', e => {
     if (!backdrop.classList.contains('open')) return;
     if (e.key === 'Escape') closeModal();
     if (e.key === 'ArrowRight' && current < steps.length - 1) goTo(current + 1);
     if (e.key === 'ArrowLeft'  && current > 0)                 goTo(current - 1);
   });
-
   prevBtn.addEventListener('click', () => { if (current > 0) goTo(current - 1); });
   nextBtn.addEventListener('click', () => {
-    if (current < steps.length - 1) goTo(current + 1);
-    else closeModal();
+    if (current < steps.length - 1) goTo(current + 1); else closeModal();
   });
 })();
 
 /* ── INIT ──────────────────────────────────────── */
-buildClock();
-buildPanel();
-updateClock();
+applyLanguage('custom12', false);
 </script>
 </body>
 </html>
